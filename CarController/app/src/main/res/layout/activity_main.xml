@@ -9,47 +9,51 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@android:color/white"
-    tools:context="arduinocar.carcontroller.MainActivity">
+    tools:context="arduinocar.carcontroller.activities.MainActivity">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/upButton"
         android:src="@drawable/arrow"
-        android:layout_above="@+id/imageButton2"
-        android:layout_alignLeft="@+id/imageButton2"
-        android:layout_alignStart="@+id/imageButton2"/>
+        android:layout_above="@+id/downButton"
+        android:layout_alignLeft="@+id/downButton"
+        android:layout_alignStart="@+id/downButton"
+        android:onClick="onUpClick"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton2"
+        android:id="@+id/downButton"
         android:rotation="180"
         android:src="@drawable/arrow"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"/>
+        android:layout_marginStart="25dp"
+        android:onClick="onDownClick"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton3"
+        android:id="@+id/leftButton"
         android:rotation="270"
         android:src="@drawable/arrow"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/imageButton4"
-        android:layout_toStartOf="@+id/imageButton4"/>
+        android:layout_toLeftOf="@+id/rightButton"
+        android:layout_toStartOf="@+id/rightButton"
+        android:onClick="onLeftClick"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton4"
+        android:id="@+id/rightButton"
         android:rotation="90"
         android:src="@drawable/arrow"
-        android:layout_alignTop="@+id/imageButton3"
+        android:layout_alignTop="@+id/leftButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:onClick="onRightClick"/>
 
 </RelativeLayout>
