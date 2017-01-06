@@ -12,12 +12,12 @@ import java.io.OutputStream;
 public class BluetoothSocketUtils {
     public static BluetoothSocket bluetoothSocket;
 
-    protected static void addBluetoothSocket(BluetoothSocket newSocket) {
+    private static void addBluetoothSocket(BluetoothSocket newSocket) {
         bluetoothSocket = newSocket;
     }
 
-    public static void startConnectionWorker() {
-        Thread connectionThread = new Thread(new ConnectThread());
+    public void startConnectionWorker() {
+        Thread connectionThread = new Thread(new ConnectThread(new connectThreadCallback()));
         connectionThread.start();
     }
 
@@ -30,4 +30,32 @@ public class BluetoothSocketUtils {
             e.printStackTrace();
         }
     }
+
+    class connectThreadCallback implements Callback {
+
+        @Override
+        public void callBack(ExecResult execResult) {
+            if(execResult.data.containsKey("error")) {
+                System.out.println("Something went wrong when connection to bluetooth");
+                System.out.println(execResult.data.get("error"));
+                System.out.println("Starting new thread");
+
+                Thread connectionThread = new Thread(new ConnectThread(this));
+                connectionThread.start();
+            } else {
+                if(execResult.data.containsKey("socket") && execResult.data.get("socket") instanceof BluetoothSocket) {
+                    BluetoothSocket bluetoothSocket = (BluetoothSocket) execResult.data.get("socket");
+                    if(bluetoothSocket.isConnected()) {
+                        System.out.println("Connection to socket successful");
+                        addBluetoothSocket((BluetoothSocket)execResult.data.get("socket"));
+                    } else {
+                        System.out.println("Socket was created but cannot be connected to");
+                    }
+                } else {
+                    System.out.println("Something was wrong with the socket");
+                }
+            }
+        }
+    }
 }
+
